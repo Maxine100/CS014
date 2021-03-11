@@ -1,0 +1,351 @@
+Ch.17 Stacks, Queues, Exceptions, Templates
+- A stack is an ADT in which items are only inserted on or removed from the top of a stack.
+- A stack is referred to as a last-in first-out ADT.
+- A stack can be implemented using a linked list, an array, or a vector.
+- A stack is often implemented using a linked list with the list's head being the stack's top.
+- A queue is an ADT in which items are inserted at the end of the queue and removed from the front of the queue.
+- A queue is referred to as a first-in first-out ADT.
+- A queue can be implemented using a linked list, an array, or a vector.
+- A queue is often implemented using a linked list, with the list's head node representing the queue's front and the list's tail node representing the queue's end.
+- Error-checking code is code a programmer writes to detect and handle errors that occur during program execution.
+- An exception is a circumstance that a program was not designed to handle, such as if the user enters a negative height.
+- The language has special constructs, try, throw, and catch, known as exception-handling constructs, to keep error-checking code separate and to reduce redundant checks.
+- A try block surrounds normal code, which is exited immediately if a throw statement executes.
+- A throw statement appears within a try block; if reached, execution jumps immediately to the end of the try block.
+- The throw statement provides an object of a particular type, such as an object of type "runtime_error", which is a class defined in the stdexcept library.
+- A catch clause immediately follows a try block; if the catch was reached due to an exception thrown of the catch clause's parameter type, the clause executes.
+- The clause is said to catch the thrown exception.
+- A catch block is called a handler because it handles an exception.
+- If an exception is thrown within a function and not caught within that function, then the function is immediately exited and the calling function is checked for a handler and so on up the function call hierarchy.
+- If no handler is found going up the call hierarchy, then terminate() is called, which typically aborts the program.
+- Different throws in a try block may throw different exception types.
+- Multiple handlers may exist, each handling a different type.
+- The first matching handler executes, remaining handlers are skipped.
+- catch(...) is a catch-all handler that catches any type, which is useful when listed as the last handler.
+- A thrown exception may also be caught by a catch block meant to handle an exception of a base class.
+- A funciton template is a function definition having a special type parameter that may be used in place of types in the function.
+- The function return type is preceded by template<typename TheType> where TheType can be any identifier.
+- That type is known as a type parameter and can be used throughout the function for any parameter types, return types, or local variable types.
+- The identifier is known as a template parameter and may be various items.
+- The compiler automatically generates a unique function definition for each type appearing in function calls to the function template.
+- Programmers optionally may explicitly specify the type as a special argument as in FunctionName<TheType>(parameters).
+- Multiple classes may be nearly identical, differing only in their data types.
+- A class template is a class definition having a special type parameter that may be used in place of types in the class.
+- A variable declared of that class type must indicate a specific type.
+- The class definition is preceded by template<typename TheType> where TheType can be any identifier.
+- That type is known as a template parameter and can be used throughout the class.
+- The identifier is known as a template parameter and may be various items, even another template parameter.
+- Any of the class's functions defined outside the class declaration must be preceded by the template declaration and have the type in angle brackets appended to its name.
+- A template may have multiple parameters separated by commas.
+
+
+
+Ch.18 Trees
+- In a binary tree, each node has up to 2 children, known as left or right child.
+- A leaf is a tree node with no children.
+- An internal node is a node with at least one child.
+- A parent node with a child is said to be that child's parent.
+- Ancestors inculde parent, parent's parent, etc., up to tree's root.
+- The root has no parent.
+- The link from a node to a child is an edge.
+- A node's depth is number of edges on path from root to node.
+- All nodes with the same depth form a tree level.
+- A tree's hieght is largest depth of any node.
+- A binary tree is full if every node has 0 or 2 children.
+- A binary tree is complete if all levels, except maybe the last one, are completely full and all nodes in last level are as far left as possible.
+- A binary tree is perfect if all internal nodes have 2 children and all leaf nodes are at the same level.
+- A binary search tree (BST) has an ordering property that any node's left subtree keys <= the node's key and the right subtree's keys >= the node's key.
+- To search nodes means to find a node with a desired key.
+- Searching a BST in the worst case requires H+1 comparisons, meaning O(H) comparisons where H is the tree height.
+- A BST node's successor is the node that comes after in the BST ordering.
+- A BST node's predecessor is the node that comes before in the BST ordering.
+- A search algorithm returns the first node found matching a key, returns null if a matching node is not found.
+- Given a new node, a BST insert operation inserts the new node in a proper location obeying the BST ordering property.
+- A BST remove operation removes the first found matching node, restructuring the tree to preserve the BST ordering property.
+- A tree traversal algorithm visits all nodes in the tree once and performs an operation on each node.
+- An inorder traversal visits all nodes in a BST from smallest to largest.
+- The minimum N-node binary tree height is h = log2N, achieved when each level is full except maybe the last.
+- The max N-node binary tree height is N-1.
+- A BST implementation often includes a parent pointer inside each node.
+
+
+
+Ch.19 Balanced Trees 1 (B Trees)
+- In a binary tree, each node has one key and up to two children.
+- A B-tree with orker K is a tree where nodes can have up to K-1 keys and up to K children.
+- The order is the maximum number of children a node can have.
+- All keys in a B-tree must be distinct.
+- All leaf nodes must be at the same level.
+- An internal node with N keys must have N+1 children.
+- Keys in a node are stored in sorted order from smallest to largest.
+- Each key in a B-tree internal node has one left subtree and one right subtree.
+- Each child of an internal node can have a different number of keys than the parent internal node.
+- A 2-3-4 tree node containing 3 keys is said to be full and uses all keys and children.
+- A node with n key(s) is called an n+1 node.
+- Given a key, a search algorithm returns the first node found matching that key or returns null if a matching node is not found.
+- Searching a 2-3-4 tree is a recursive process that starts with the root node.
+- Insertion returns the leaf node where the key was inserted or null if the key was already in the tree.
+- An important operation during insertion is the split operation which is done on every full node encountered during insertion traversal.
+- The split operation moves the middle key from a child node into a child's parent node.
+- The first and last keys in the child node are moved into two separate nodes.
+- The split operation returns the parent node that received the middle key from the child.
+- Splitting an internal node allocates 2 new nodes each with a single key and the middle key from the split node moves up into the parent node.
+- Splitting the root node allocates 3 new nodes each with a single key and the root of the tree becomes a new node with a single key.
+- During a split operation, any non-full internal node may need to gain a key from a split child node; key may have children on either side.
+- The preemptive split insertion scheme always splits any full node encountered during insertion traversal.
+- The preemptive split insertion scheme ensures that any time a full node is split, the parent node has room to accommodate the middle value from the child.
+- During a split operation, any non-full internal node may need to gain a key from a split child node; this key may have children on either side.
+- The preemptive split insertion scheme always splits any full node encountered during insertion travel.
+- The preemptive split insertion scheme ensures that any time a full node is split, the parent node has room to accommodate the middle value from the child.
+- Removing an item from a 2-3-4 tree may require rearranging keys to maintain tree properties.
+- A rotation is a rearrangement of keys between 3 nodes that maintains all 2-3-4 tree properties in the process.
+- A right rotation on a node causes a node to lose one key and the node's right sibling to gain one key.
+- A left rotation on a node causes the node to lose one key and the node's left sibling to gain one key.
+- When rearranging values in a 2-3-4 tree during deletions, rotations are not an option for nodes that do not have a sibling with 2 or more keys.
+- A fusion is a combination of 3 keys: 2 from adjacent sibling nodes that have 1 key each and a third form the parent of the siblings.
+- Fusion is the inverse operation of a split.
+- The key taken from the parent node must be the key that is between the 2 adjacent siblings.
+- The parent node must have at least 2 keys with the exception of the root.
+- For non root fusion, fusion operates on 2 adjacent siblings that each have 1 key.
+- The key in the parent node that is between the 2 adjacent siblings is combined with the 2 keys from the two siblings to make a single, fused node.
+- A B-Tree merge operates on a node with 1 key and increases the node's keys to 2 or 3 using either a rotation or fusion.
+- If either sibling has 2 or more keys, a key is transferred via rotation, increasing the number of keys in the merged node from 1 to 2.
+- If all adjacent siblings of the node being merged have 1 key, then fusion is used.
+- The merge operation can be performed on any node that has 1 key and a non-null parent node with at least 2 keys.
+- A 2-3-4 tree remove operation removes the first-found matching key, restructuring the tree to preserve all 2-3-4 tree rules.
+- A key can only be removed from a leaf node that has 2 or more keys.
+- The preemptive merge removal scheme involves increasing the number of keys in all single-key, non-root nodes encountered during traversal.
+- The merging always happens before any key removal is attempted.
+- Preemptive merging ensures that any leaf node encountered during removal will have 2 or more keys, allowing a key to be removed from the leaf node without violating the 2-3-4 tree rules.
+- To remove a key from an internal node, the key to be removed is replaced with the minimum key in the rightmost child subtree aka the key's successor, or the maximum key in the leftmost child subtree.
+- First, the key chosen for replacement is stored in a temporary variable, then the chosen key is removed recursively, and lastly the temporary key replaces the key to be removed.
+
+
+
+Ch.20 Balanced Trees 2 (AVL Trees)
+- An AVL tree is a BST with a height balance property and specific operations to rebalance the tree when a node is inserted or removed.
+- A BST is height balanced if for any node, the heights of the node's left and right subtress differ by only 0 or 1.
+- A node's balance factor is the left subtree height minus the right subtree height, which is 1, 0, or -1 in an AVL tree.
+- Minimizing binary tree height yields fastest searches, insertions, and removals.
+- An AVL tree only requires a few local rotations to maintain a minimum height tree.
+- An AVL tree implementation can store the subtree height as a member of each node.
+- Inserting an item into an AVL tree may require rearranging the tree to maintain height balance.
+- A rotation is a local rearrangement of a BST that maintains the BST ordering property while rebalancing the tree.
+- The AVLTreeUpdateHeight algorithm updates a node's height value by taking the max of the child subtree heights and adding 1.
+- The AVLTreeSetChild algorithm sets a node as the parent's left or right child, updates the child's parent pointer, and updates the parent node's height.
+- The AVLTreeReplaceChild algorithm replaces one of a node's existing child pointers with a new value, utilizing AVLTreeSetChild to perform the replacement.
+- The AVLTreeGetBalance algorithm computes a node's balance factor by subtracting the right subtree height from the left subtree height.
+- A right rotation algorithm is defined on a subtree root which must have a left child.
+- The AVLTreeRebalance algorithm updates the height value at a node, computes the balance factor, and rotates if the balance factor is 2 or -2.
+- An AVL tree insertion involves searching for the insert location, inserting the new node, updating balance factors, and rebalancing.
+- Balance factor updates are only needed on nodes ascending along the path from the inserted node up to the root.
+- Insertion starts with the standard BST insertion algorithm.
+- After inserting a node, all ancestors of the inserted node are rebalanced.
+- A node is rebalanced by first computing the node's balance factor then performing rotations if the balance factor is outside the range -1 to 1.
+- The AVL insertion algorithm traverses the tree from the root ot a leaf node to find the insertion point, then traverses back up to the root ot rebalance.
+- One node is visited per level, and at most 2 rotations are needed for a single node.
+- The runtime complexity of insertion is O(log N).
+- Given a key, an AVL tree remove operation removes the first-found matching node, restructuring the tree to preserve all AVL tree requirements.
+- Removal begins by removing the node using the standard BST removal algorithm.
+- After removing a node, all ancestors of the removed node are rebalanced.
+- A node is rebalanced by first computing the node's balance factor, then performing rotations if the balance factor is 2 or -2.
+- To remove a key, the AVL tree removal algorithm first locates the node containing the key using BSTSearch.
+- If the node is found, AVLTreeRemoveNode is called to remove the node.
+- Then AVLTreeRebalance is called for all ancestors of the removed node.
+
+
+
+Ch.21 Heaps, Hash Tables
+- A max-heap is a binary tree that maintains the simple property that a node's key is greater than or equal to the childrens' keys.
+- An insert into a max-heap starts by inserting the node in the tree's last level, then swapping the node with its parent until no max-heap property violation occurs.
+- Inserts fill a level left to right before adding another level so the tree's height is always the minimum possible.
+- The upward movement of a node in a max-heap is sometimes called percolating.
+- A remove from a max-heap is always a removal of the root; is done by replacing the root with the last level's last node, and swapping that node with its greatest child until no max-heap property violation occurs.
+- A min-heap is similar to a max-heap, but a node's key is less than or equal to its children's keys.
+- A web server is a computer tha provides web pages in response to Internet requests.
+- A server may store millions of pages on large slow hard drives.
+- For speed, a server may keep copies of popular pages on a small fast drive known as a cache so that most accesses are fast.
+- When a page is requested that isn't in the cach and the cache is full, the server may remove the page that has been cached the longest.
+- A heap provides a fast way to find the page which has the oldest timestamp, which serves as the key.
+- Heaps are typically stored using arrays.
+- Heaps aren't implemented with node structures and parent/child pointers; therefore traversing form a node to parent or child nodes requires referring to nodes by index.
+- Parent of node: (i-1)/2
+- Children of node: 2i+1, 2i+2
+- Heapsort is a sorting algorithm that takes advantage of a max-heap's properties by repeatedly removing the max and building a sorted array in reverse order.
+- An array of unsorted values must first be converted into a heap.
+- The heapify operation is used to turn an array into a heap.
+- Since leaf nodes already satisfy the max heap property, heapifying to build a max-heap is achieved by percolating down on every non-leaf node in reverse order.
+- The heapify operation starts on the internal node with the largest index and continues down to, and including, the root node at index 0.
+- The largest internal node index is floor(N/2)-1.
+- Heapsort begins by heapifying the array into a max-heap and initializing an end index value to the size of the array minus 1.
+- Heapsort repeatedly removes the maximum value, stores that value at the end index, and decrements the end index.
+- The removal loop repeats until the end index is 0.
+- A hash table is a data structure that stores unordered items by mapping (or hashing) each item to a location in an array (or vector).
+- A hash table's main advantage is that searching, inserting, or removing an item may require only O(1).
+- In a hash table, an item's key is the value used to map to an index.
+- For all items that might possibly be stored in the hash table, every key is ideally unique so that the hash table's algorithms can search for a specific item by that key.
+- Each hash table array element is called a bucket.
+- A hash function cmoputes a bucket index from the item's key.
+- A common hash functino uses the modulo operator %. 
+- A hash table's operations of insert, remove, and search each use the hash function to determin an item's bucket.
+- A collision occurs when an item being inserted into a hash table maps to the same bucket as an existing item in the hash table.
+- Chaining is a collision resolution technique where each bucket has a list of items.
+- Open addressing is a collision resolution technique where collisions are resolved by looking for an empty bucket elsewhere in the table.
+- Chaining uses a list for each bucket where each list may store multiple items that map to the same bucket.
+- A hash table with linear probing handles a collision by starting at the key's mapped bucket, then linearly searches subsequent buckets until an empty bucket is found.
+- An empty-since-start bucket has been empty since the hash table was created.
+- An empty-since-removal bucket had an item removed that caused the bucket to now be empty.
+- Using linear probing, a hash table insert algorithm uses the item's key to determine the initial bucket, linearly probes each bucket, and inserts the item in the next empty bucket.
+- If the probing reaches the last bucket, the probing continues at bucket 0.
+- The insert algorithm returns true if the item was inserted and false if all buckets are occupied.
+- Using linear probing, a hash table remove algorithm uses the sought itme's key to determine the initial bucket.
+- The algorithm probes each bucket until either a matching item is found, an empty-since-start bucket is found, or all buckets have been probed.
+- If the item is found, the item is removed and the bucket is marked empty-after-removal.
+- In linear probing, a hash table search algorithm uses the sought item's key to determine the initial bucket.
+- The algorithm probes each bucket until either the matching item is found (returning the item), an empty-since-start bucket is found (returning null), or all buckets are probed without a match (returning null).
+- A hash table with quadratic probing handles a collision by starting at the key's mapped bucket and then quadratically searches subsequent buckets until an empty bucket is found.
+- If an item's mapped bucket is H, the formula (H + c1 * i + c2 * i^2) % tablesize is used to determine the item's index in the hash table.
+    - c1 and c2 are programmer-defined constants for quadratic probing.
+- Inserting a key uses the formula starting with i=0 to repeatedly search the hash table until an empty bucket is found.
+- Each time an empty bucket isn't found, i is incremented by 1.
+- Iterating through sequential i values to obtain the desired table index is called the probing sequence.
+- The search algorithm uses the probing sequence until the key being searched for is found or an empty-since-start bucket is found.
+- The removal algorithm searches for the key to remove and, if found, marks the bucket as empty-after-removal.
+- A perfect hash function maps items to buckets with no collisions.
+- The runtime for insert, search, and remove is O(1) with a perfect hash function.
+- A hash function's performance depends on the hash table size and knowledge of the expected keys.
+- A modulo hash uses the remainder from division of the key by hash table size N.
+- A mid-square hash squares the key, extracts R digits from the result's middle, and returns remainder of middle digits divided by hash table size N.
+- The process of squaring and extracting middle digits reduces the likelihood of keys mapping to just a few buckets.
+- The mid-square hash function is typically implemented using binary and not decimal because binary implementation is faster.
+- A binary mid-square hash function extracts the middle R bits and returns the remainder of the middle bits divided by hash table size N.
+- The extracted middle bits depend on the max key.
+- A multiplicative string hash repeatedly multiplies the hash value and adds the ASCII value of each char in a string.
+- A multiplicative hash function for strings starts with a large initial value.
+- For each character, the hash function multiplies the current hash value by a multiplier (often prime) and adds the character's value.
+- The the function returns the remainder of the sum divided by the hash table size N.
+- A direct hash function uses the item's key as the bucket index.
+- A hash table with a direct hash function is called a direct access table.
+- Given a key, a direct access table search algorithm returns the item at index key if bucket isn't empty, null if is.
+- A direct access table ahs the advantage of no collision; each key is unique and each gets a unique bucket so no collisions can occur.
+- There are two main limitations:
+    - All keys must be non negative ints, but sometimes keys might be negative.
+    - The hash table's size equals the largest key value plus 1, which may be very large.
+- Double hashing is an open-addressing collision resolution technique that uses 2 different hash functions to compute bucket indices.
+- Using hash functions h1 and 2, a key's index in the table is computed with the formula (h1(key) + h2(key) * i) % tablesize.
+- Inserting a key uses the formula starting with i = 0 to repeatedly search hash table buckets until an empty bucket is found.
+- Each time an empty bucket isn't found, i is incremented by i.
+- Iterating thorugh sequential i values to obtain the desired table index is called the probing sequence.
+- Using double hashing, a hash table search algorithm probes each bucket using the probing sequence defined by the two hash functions.
+- The search continues untile either the matching item is found, an empty-since-start bucket is found or all buckets are probed without a match.
+- A hash table insert algorithm probes each bucket using the probing sequence and inserts the item in the next empty bucket.
+- A hash table removal algorithm first searches for the item's key; if item is found, item is removed and bucket is marked empty-after-removal.
+
+
+
+Ch.22 Advanced Sorting
+- Sorting is the process of converting a list of elements into ascending or descending order.
+- Selection sort is a sorting algorithm that treats the input as two parts, a sorted an an unsorted part, and repeatedly selects the proper next value to move from the unsorted part to the end of the sorted part.
+- Insertion sort is a sorting algorithm that treats the input as two parts, a sorted and an unsorted part, and repeatedly inserts the next value from the unsorted part into the correct location in the sorted part.
+- Insertion sort's typical runtime is O(N^2).
+- For sorted or nearly sorted inputs, insertion sort's runtime is O(N).
+- A nearly sorted list only contains a few elements not in sorted order.
+- Shell sort treats input as a collection of interleaved lists and sorts each list individually with a variant of the insertion sort algorithm.
+- Shell sort uses gap values to determine num of interleaved lists.
+- A gap value is a positive int representing distance between elements in an interleaved list.
+- For each interleaved list, if an element is at index i, the next element is at index i + gap value.
+- Shell sort chooses gap value K and sorting K interleaved lists in place.
+- It finishes by performing a standard insertion sort on entire array.
+- For each gap value K, K calls are made to the insertion sort variant function to sort K interleaved lists.
+- Shell sort ends with a final gap value of 1.
+- Shell sort tends to perform well when choosing gap values in descending order.
+- A common option is to choose powers of 2 minus 1 in descending order.
+- This gap selection technique results in shell sort's time complexity being no worse than O(N^3/2).
+- A quicksort is a sorting algorithm that repeatedly partitions the input into low and high parts (each part unsorted) and then recursively sorts each of those parts.
+- The quicksort chooses a pivot to divide the data into low and high parts.
+- The pivot can be any value within the array being sorted, commonly the value of the middle array element.
+- The quicksort algorithm divides the array into the low partition and high partition.
+- All values in the low partition are <= to the pivot value.
+- All values in the high partition are >= to the pivot value.
+- The values in each partition aren't necessarily sorted.
+- The partitioning algorithm uses two index variables l and h (low and high) initialized to the left and right sides of the current elements being sorted.
+- Once partitioned, each partition needs to be sorted.
+- Quicksort is typically implemented as a recursive algorithm using calls to quicksort to sort the low and high partitions.
+- The recursive sorting process continues until a partition has one or zero elements.
+- The quicksort algorithm's runtime is typically O(NlogN).
+- The worst cast runtime for the quicksort algorithm is O(N^2).
+- Merge sort is a sorting algorithm that divides a list into 2 halves, recursively sorts each half, and then merges the sorted halves to produces a sorted list.
+- The recursive partitioning continues until a list of 1 element is reached.
+- The merge sort algorithm uses 3 index variables to keep track of the elements to sort for each recursive function call.
+    - i is for index of first element.
+    - k is for index of last element.
+    - j divides list into 2 halves.
+- Merge sort merges the 2 sorted partitions into a single list by repeatedly selecting the smallest element from either the left or right partition and adding that element to a temporary merged list.
+- The merge sort algorithm's runtime is O(NlogN).
+- Radix sort is a sorting algorithm designed specifically for integers.
+- An array of integer values can be subdivided into buckets by using the integer values' digits.
+- A bucket is a collection of integer values that all share a particular digit value.
+- The algorithm processes one digit at a time starting with the least significant digit and ending with the most significant.
+- All array elements are placed into buckets based on the current digit's value, then the array is rebuilt by removing all elements from buckets in order from lowest to highest bucket.
+
+
+
+Ch.23 Graphs 1
+- A graph is a data structure for representing connections among items and consists of vertices connected by edges.
+- A vertex/node represents an item in a graph.
+- An edge represents a connection between two vertices in a graph.
+- For a given graph, the # of vertices is commonly represented as V and the # of edges as E.
+- Two vertices are adjacent if connected by an edge.
+- A path is a sequence of edges leading from a source/starting vertext to a destination/ending vertex.
+- The path length is the # of edges in the path.
+- The distance between 2 vertices is the # of edges on the shortest path between those vertices.
+- A common approach to representing a graph data structure is an adjacency list.
+- In an adjacency list graph representation, each vertex has a list of adjacent vertices, each list item representing an edge.
+- An advantage of an adjacency list graph representation is a size of O(V+E).
+- A disadvantage is that determining whether 2 vertices are adjacent is O(V).
+- A sparse graph has far fewer edges than the maximum possible.
+- Another approach to representing a graph data structure is an adjacency matrix.
+- In an adjacency matrix graph representation, each vertex is assigned to a matrix row and column and a matrix element is 1 if the corresponding two vertices have an edge or is 0 otherwise.
+- An adjacency matrix's key benefit is O(1) determination of whether two vertices are adjacent.
+- A key drawback is O(V^2) size.
+- An adjacency matrix only represents edges among vertices.
+- An algorithm commonly must visit every vertex in a graph in some order, known as a graph traversal.
+- A breadth-frist search (BFS) is a traversal that visits a starting vertex, then all vertices of distance 1 from that vertex, then of distance 2, and so on without revisiting a vertex.
+- In a peer-to-peer network, computers are connected via a network and may seek and download file copies via intermediary computers or routers.
+- An algorithm for breadth-first search pushes the starting vertex to a queue. While the queue isn't empty, algorithm pops a vertex from the queue and visits the popped vertex, pushes that vertex's adjacent vertices (if not already discovered), and repeats.
+- When the BFS algorithm first encounters a vertex, that vertex is said to have been discovered. The vertices in the queue are called the frontier, being discovered but not yet visited.
+- A depth-first search (DFS) is a traversal that visits a starting vertex then visits every vertex along each path starting from that vertex to the path's end before backtracking.
+- An algorithm for depth-first search pushes the starting vertex to a stack. While the stack isn't empty, the algorithm pops the vertex from top of stack. If vertex has not already been visited, the algorithm visits the vertex and pushes the adjacent vertices to the stack.
+
+
+
+Ch.24 Graphs 2
+- A directed graph or digraph, has vertices connected by directed edges.
+- A directed edge is a connection between a starting and a terminating vertex.
+- In a directed graph, vertex Y is adjacent to vertex X if there is an edge connecting them (terminating vertex is adjacent to starting vertex, not other way around).
+- A path is a sequence of directed edges leading from a source to a destination.
+- A cycle is path that starts and ends at same vertex.
+- A directed graph is cyclic if the graph contains a cycle and acyclic if it doesn't.
+- A weighted graph associates a weight with each edge.
+- A graph edge's weight or cost represents some value between vertex items.
+- Weighted graphs may be directed or undirected.
+- In a weighted graph, the path length is the sum of the edge weights in the path.
+- The cycle length is the sum of the edge weights in a cycle.
+- A negative edge weight cycle has a cycle length of < 0.
+- A shortest path doesn't exist in a graph with a negative edge weight cycle.
+- Dijkstra's shortest path algorithm determines the shortest path from a start vertex to each vertex in a graph.
+- For each vertex, Dijkstra's algorithm determines the vertex's distance and predecessor pointer.
+- A vertex's distance is the shortest path distance from the start vertex.
+- A vertex's predecessor pointer points to the previous vertex along the shortest path from the start vertex.
+- The Bellman-Ford shortest path algorithm determines the shortest path from a start vertex to each vertex in a graph.
+- The algorithm performs V-1 main iterations, visiting all vertices in the graph during each iteration.
+- The runtime for the Bellman-Ford shortest path algorithm is O(VE).
+- A topological sort of a directed, acyclic, graph produces a list of the graph's vertices such that for every edge from a vertex X to a vertex Y, X comes before Y in the list.
+- The topological sort algorithm uses three lists:
+    - A results lists that contains a topological sort of vertices.
+    - A no-incoming-edges list of vertices with no incoming edges.
+    - A remaining-edges list.
+- The result list is empty at first.
+- The no-incoming-edges vertex list starts as a list of all vertices in the graph with no incoming edges.
+- The remaining-edges list starts as a list of all edges in the graph.
+- The algorithm executes while the no-incoming-edges vertex list isn't empty.
