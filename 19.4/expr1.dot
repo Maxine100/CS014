@@ -1,0 +1,11 @@
+digraph G {
+E[label="+, key=E"]
+E -> A
+A[label="a, key=A"]
+E -> D
+D[label="*, key=D"]
+D -> B
+B[label="b, key=B"]
+D -> C
+C[label="c, key=C"]
+}

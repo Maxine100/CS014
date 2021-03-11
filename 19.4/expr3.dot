@@ -1,0 +1,27 @@
+digraph G {
+M[label="-, key=M"]
+M -> E
+E[label="+, key=E"]
+E -> A
+A[label="a, key=A"]
+E -> D
+D[label="*, key=D"]
+D -> B
+B[label="b, key=B"]
+D -> C
+C[label="c, key=C"]
+M -> L
+L[label="*, key=L"]
+L -> J
+J[label="+, key=J"]
+J -> H
+H[label="*, key=H"]
+H -> F
+F[label="d, key=F"]
+H -> G
+G[label="e, key=G"]
+J -> I
+I[label="f, key=I"]
+L -> K
+K[label="g, key=K"]
+}
